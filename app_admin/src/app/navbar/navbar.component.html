@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">
+    <img src="/assets/images/logo.png" alt="Logo">
+  </a>
+  <div class="navbar-nav">
+    <a routerLink="/list-trips" routerLinkActive="active" class="nav-item nav-link">
+      Trips
+    </a>
+  </div>
+  <div class="navbar-end">
+    <a class="navbar-item" routerLink="/login" *ngIf="!isLoggedIn()">
+      Log In
+    </a>
+    <a class="navbar-item" (click)="onLogout()" *ngIf="isLoggedIn()">
+      Log Out
+    </a>
+  </div>
+</nav>

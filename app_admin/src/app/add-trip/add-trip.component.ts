@@ -38,18 +38,23 @@ export class AddTripComponent implements OnInit {
 
   public onSubmit(): void {
     this.submitted = true;
+  
     if (this.addForm.valid) {
-      this.tripService.addTrip(this.addForm.value).subscribe({
+       this.tripService.addTrip(this.addForm.value).subscribe({
         next: (data: any) => {
-          console.log(data);
+          alert('Trip added successfully!');
           this.router.navigate(['']);
+
         },
         error: (error: any) => {
-          console.log('Error: ' + error);
+          alert('Failed to add trip. Please try again.');
         }
       });
+    } else {
+      console.log('Form invalid. Please fix the errors.');
     }
   }
+  
 
   // Getter to access form fields
   get f() {

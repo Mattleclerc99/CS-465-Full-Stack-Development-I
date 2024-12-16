@@ -30,6 +30,7 @@ export class EditTripComponent implements OnInit {
     if (!tripCode) {
       alert("Something went wrong; couldn't find where tripCode was stashed!");
       this.router.navigate(['']);
+
       return;
     }
 
@@ -70,18 +71,46 @@ export class EditTripComponent implements OnInit {
 
   public onSubmit(): void {
     this.submitted = true;
+    console.log('Form submitted:', this.editForm.value); // Debugging: Log form values
+    console.log('Form valid:', this.editForm.valid); // Debugging: Log form validity
+  
     if (this.editForm.valid) {
       this.tripDataService.updateTrip(this.editForm.value).subscribe({
         next: (value: any) => {
-          console.log(value);
-          this.router.navigate(['']);
+          console.log('Trip updated successfully:', value); // Debugging
+          alert('Trip saved successfully!');
+          this.router.navigate(['']); // Redirect
         },
         error: (error: any) => {
-          console.log('Error:', error);
+          console.error('Error updating trip:', error); // Debugging
+          alert('Failed to save trip.');
+        }
+      });
+    } else {
+      console.log('Form invalid. Please check required fields.');
+    }
+  }
+  
+  public onDeleteTrip(): void {
+    if (confirm('Are you sure you want to delete this trip?')) {
+      const tripCode = this.editForm.value.code; // Get the trip code
+      console.log('Attempting to delete trip with code:', tripCode);
+  
+      this.tripDataService.deleteTrip(tripCode).subscribe({
+        next: () => {
+          console.log('Trip deleted successfully');
+          alert('Trip deleted successfully!');
+          this.router.navigate(['']);
+        },
+        error: (error) => {
+          console.error('Error deleting trip:', error);
+          alert('Failed to delete trip.');
         }
       });
     }
   }
+  
+  
 
   // Getter to access form fields
   get f() {

@@ -60,6 +60,9 @@ typings/
 # next.js build output
 .next
 
+# dot env filepath
+.env
+
 #Filter out VScode Working Files
 .vscode/*
 !.vscode/settings.json
